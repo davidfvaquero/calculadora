@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final int[] botonesNumeros = {R.id.Btn0, R.id.Btn1, R.id.Btn2, R.id.Btn3, R.id.Btn4, R.id.Btn5, R.id.Btn6, R.id.Btn7, R.id.Btn8, R.id.Btn9};
-    private final int[] botonesOperaciones = {R.id.BtnClear, R.id.BtnDiv, R.id.BtnRelleno, R.id.BtnMas, R.id.BtnMenos, R.id.BtnMult, R.id.BtnResultado};
+    private final int[] botonesOperaciones = {R.id.BtnClear, R.id.BtnDiv, R.id.BtnMas, R.id.BtnMenos, R.id.BtnMult, R.id.BtnResultado};
 
     private TextView txtResultado, txtCuentas;
     private String numero1 = "";
@@ -21,6 +21,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String operacion = "";
     private double resultado = 0;
 
+    /**
+     * Método que se llama al lanzar la actividad.
+     * Establece los ClickListener en cada botón.
+     *
+     * @param savedInstanceState El estado previamente guardado de la actividad (si existe).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * Método que controla los clicks de los botones.
+     * Dependiendo del botón pulsado, agrega números, limpia la pantalla, asigna una operación o calcula el resultado.
+     *
+     * @param view La vista que fue pulsada.
+     */
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -61,10 +73,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Comprueba si el boton pulsado es de una operacion.
+     *
+     * @param id El ID del botón.
+     * @return true si el botón es una operación (+, -, *, /), false si no lo es.
+     */
     private boolean esOperacion(int id) {
         return id == R.id.BtnMas || id == R.id.BtnMenos || id == R.id.BtnMult || id == R.id.BtnDiv;
     }
 
+    /**
+     * Agrega el número seleccionado al cálculo. Si aún no se ha seleccionado ninguna operación,
+     * el número se añade al primer operando (numero1). Si ya se ha seleccionado una operación,
+     * el número se añade al segundo operando (numero2).
+     *
+     * @param id El ID del botón de número pulsado.
+     */
     private void agregarNumero(int id) {
         String numero = obtenerNumero(id);
         if (operacion.isEmpty()) {
@@ -76,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Devuelve el número correspondiente al botón pulsado.
+     *
+     * @param id El ID del botón pulsado.
+     * @return El número como un String.
+     */
     private String obtenerNumero(int id) {
         if (id == R.id.Btn0) return "0";
         else if (id == R.id.Btn1) return "1";
@@ -90,6 +121,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else return "";
     }
 
+    /**
+     * Asigna la operación seleccionada (+, -, *, /) si ya se ha ingresado el primer número.
+     *
+     * @param id El ID del botón de operación pulsado.
+     */
     private void asignarOperacion(int id) {
         if (!numero1.isEmpty()) {
             if (id == R.id.BtnMas) {
@@ -104,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Calcula el resultado de la operación entre los dos números ingresados.
+     * El resultado se muestra en la pantalla y se almacena para realizar más operaciones.
+     */
     private void procesarResultado() {
         if (!numero1.isEmpty() && !numero2.isEmpty()) {
             double valor1 = Double.parseDouble(numero1);
@@ -129,6 +169,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Limpia la pantalla y reinicia todos los valores.
+     */
     private void limpiarPantallas() {
         numero1 = "";
         numero2 = "";

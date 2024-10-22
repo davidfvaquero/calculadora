@@ -193,6 +193,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="149dp"
         android:layout_marginTop="30dp"
+        android:textColor="@drawable/textcolor"
+        android:backgroundTint="@drawable/botoncolor"
         android:tag="="
         android:text="Resultado"
         app:layout_constraintStart_toStartOf="parent"
